@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "node --watch index.js",
     "db:push": "drizzle-kit push",
-    "db:studio":"drizzle-kit studio"
+    "db:studio": "drizzle-kit studio"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +20,7 @@
   },
   "type": "module",
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "argon2": "^0.44.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
@@ -32,7 +30,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.31.10",
-    "nodemon": "^3.1.14"
+    "drizzle-kit": "^0.31.10"
   }
 }
