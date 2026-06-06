@@ -1,4 +1,4 @@
-import { usersTable } from "./user.models";
+import { usersTable } from "./user.models.js";
 import { pgTable, uuid, varchar, text, timestamp, pgEnum } from "drizzle-orm/pg-core";
 
 export const notificationChannelEnum = pgEnum("notification_channel", ["EMAIL", "PUSH", "SMS"]);

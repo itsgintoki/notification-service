@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 import express from 'express';
 import userRouter from './routes/auth.routes.js';
+import notificationRouter from './routes/notifications.routes.js'
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/', userRouter);
+app.use('/',notificationRouter)
 
 app.listen(PORT,()=>{
     console.log(`Server listening on ${PORT}`);
