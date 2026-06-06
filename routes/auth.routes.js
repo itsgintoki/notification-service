@@ -6,6 +6,7 @@ import argon2 from 'argon2';
 import { SignUpPostRequestSchema, LoginPostRequestSchema } from '../validations/request.validations.js';
 import { eq } from 'drizzle-orm';
 import jwt from 'jsonwebtoken';
+import { authenticationMiddleware } from '../middlewares/auth.middlewares.js';
 
 const router = express.Router();
 
@@ -82,5 +83,13 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ error: "An internal server error occurred." });
     }
 });
+
+router.get(
+    '/me',
+    authenticationMiddleware,
+    (req, res) => {
+        return res.json(req.user);
+    }
+);
 
 export default router;
