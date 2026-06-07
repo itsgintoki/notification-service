@@ -6,8 +6,31 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function recoverStuckJobs() {
+    const recovered = await db
+        .update(jobsTable)
+        .set({
+            status: "PENDING",
+            processingStartedAt: null,
+        })
+        .where(
+            and(
+                eq(jobsTable.status, "PROCESSING"),
+                sql`processing_started_at < NOW() - INTERVAL '5 minutes'`
+            )
+        )
+        .returning();
+
+    if (recovered.length > 0) {
+        console.log(`Recovered ${recovered.length} stuck jobs`);
+    }
+}
+
+
 async function startWorker() {
     console.log("Worker initialized and listening for jobs...");
+    await recoverStuckJobs();
+
 
     while (true) {
         let job = null;
